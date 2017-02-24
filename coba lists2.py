@@ -33,15 +33,24 @@ quadavgtail = quadavg[quadavgheadlen:]
 
 smooth = quadavghead.reshape((-1, 4))
 smoothness = np.var(smooth, axis=1, dtype=np.float64)
-smoothness = np.array([smoothness])
+# smoothness = np.reshape(smoothness, smoothness.size)
 
-# print(smooth)
-# print(smoothness)
+new_smooth = np.array_split(smooth, smoothness.size)
+print("----")
+new_list_smooth = []
+for i in range(smoothness.size):
+    temp = new_smooth[i].tolist()[0]
+    temp.append(smoothness[i])
+    new_list_smooth.append(temp)
 
-smoothlist = np.concatenate((smooth, smoothness.T), axis=1)
-smoothlist = smoothlist.tolist()
-smoothlist.sort(key=lambda x: x[4], reverse=True)
-print(smoothlist[0])
+new_list_smooth.sort(key=lambda x: x[4]) #reverse=True if descending
+print(new_list_smooth)
+#smoothness = np.array([np.array(i) for i in new_list_smooth])
+
+#print(smooth.size)
+#print(smoothness.size)
+
+#print(np.concatenate((smooth, [smoothness.T]), axis=1))
 
 # print(np.sort(smoothness))
 # for item in smoothness:
