@@ -5,7 +5,7 @@ ba = bitarray.bitarray()
 
 fileName = "message.txt"
 
-with open(fileName, mode='rb') as file: # b is important -> binary
+with open(fileName, mode='rb') as file:
     fileContent = file.read()
 
 fileContent = bin(int(binascii.hexlify(fileContent), 16))
