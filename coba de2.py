@@ -3,6 +3,7 @@ from scipy.io.wavfile import write
 import wave
 import math
 import TA.pesan
+import pickle
 
 spf = wave.open('Bruno_Mars_Versace_On_The_Floor.wav', 'r')
 
@@ -67,7 +68,6 @@ def unchangeable():
     lm.append(2)
     return 0
 
-
 j = 0
 for isiquad in pair:
     i = 0
@@ -104,6 +104,23 @@ print(tulis)
 #
 write('test.wav', 44100, tulis)
 
+# with open('lm', 'wb') as lmfile:
+#     pickle.dump(lm, lmfile)
+#
+# lmfile = open('lmun.txt', 'w')
+# for item in lm:
+#   lmfile.write("%s\n" % item)
+#
+# lmfile.close()
+
+LMFile = open("lm", "wb")
+LMFileByteArray = bytes(lm)
+print(LMFileByteArray)
+print(list(LMFileByteArray))
+LMFile.write(LMFileByteArray)
+LMFile.close()
+
+print(len(lm), panjangteks, lm.count(0), lm.count(1), lm.count(2))
 # print(pair)
-# print(head)
-print(lm.count(2))
+# # print(head)
+# print(lm.count(2))
