@@ -9,7 +9,7 @@ with open(fileName, mode='rb') as file:
     fileContent = file.read()
 
 fileContent = bin(int(binascii.hexlify(fileContent), 16))
-# print(fileContent)
+print(fileContent)
 
 bitmessage = ba.fromstring(fileContent)
 bitmessage = ba.tolist()

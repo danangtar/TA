@@ -1,6 +1,9 @@
 import numpy as np
 import wave
-import math
+import binascii
+import bitarray
+
+ba = bitarray.bitarray()
 
 spf = wave.open('test.wav', 'r')
 
@@ -19,60 +22,40 @@ head = signal[:headlen]
 tail = signal[headlen:]
 
 pair = head.reshape((-1, 2))
-y = pair.size
-pair = pair.tolist()
-x = 0
-lm = []
 
-def expandable(v, m, b):
-    vtemp = 2 * v + b
-    if 128 <= m <= 255:
-        if abs(vtemp) <= 2 * (255 - m):
-            lm.append(0)
-            return vtemp
-        else:
-            return changeable(v, m, b)
-    elif 0 <= m <= 127:
-        if abs(vtemp) <= 2 * m + 1:
-            lm.append(0)
-            return vtemp
-        else:
-            return changeable(v, m, b)
+with open("lm", mode='rb') as file: # b is important -> binary
+    fileContent = file.read()
 
+fileContent = list(fileContent)
 
-def changeable(v, m, b):
-    vtemp = 2 * math.floor(v / 2) + b
-    if 128 <= m <= 255:
-        if abs(vtemp) <= 2 * (255 - m):
-            lm.append(1)
-            return vtemp
-    elif 0 <= m <= 127:
-        if abs(vtemp) <= 2 * m + 1:
-            lm.append(1)
-            return vtemp
-    else:
-        return unchangeable()
-
-
-def unchangeable():
-    lm.append(2)
-    return 0
+message = []
 
 j = 0
 for isiquad in pair:
     i = 0
-    while i < 1:
-        v = float(isiquad[i + 1]) - float(isiquad[i])
-        m = math.floor((float(isiquad[i + 1]) + float(isiquad[i])) / 2)
-        b = float(teks[j])
-        # v.append(vtemp)
-        vtemp = expandable(v, m, b)
-        # print(v, m, b, vtemp, j)
-        if vtemp != 0:
-            uaksen1 = m + math.floor((vtemp + 1) / 2)
-            uaksen2 = m - math.floor(vtemp / 2)
+    if j < len(fileContent):
+        while i < 1:
+            v = int(isiquad[i + 1]) - int(isiquad[i])
 
-            pair[x] = [uaksen1, uaksen2]
+            message.append(v & 1)
+
             j += 1
-        i += 1
-        x += 1
+            i += 1
+
+    else:
+        break
+
+print(message)
+
+message = np.array(message, dtype=bool)
+message = message.tolist()
+
+n = int(bitarray.bitarray(message).tostring(),2)
+
+write = binascii.unhexlify('%x' % n)
+
+print(write)
+
+f = open('hasyil.txt', 'wb')
+f.write(write)
+f.close()

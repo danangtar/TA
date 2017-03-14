@@ -39,6 +39,7 @@ def expandable(v, m, b):
     if 128 <= m <= 255:
         if abs(vtemp) <= 2 * (255 - m):
             lm.append(0)
+            print(vtemp)
             return vtemp
         else:
             return changeable(v, m, b)
@@ -66,24 +67,28 @@ def changeable(v, m, b):
 
 def unchangeable():
     lm.append(2)
-    return 0
-
+    return "aduh"
+lx = []
 j = 0
 for isiquad in pair:
     i = 0
     if j < panjangteks:
         while i < 1:
-            v = float(isiquad[i + 1]) - float(isiquad[i])
-            m = math.floor((float(isiquad[i + 1]) + float(isiquad[i])) / 2)
-            b = float(teks[j])
+            v = int(isiquad[i + 1]) - int(isiquad[i])
+            m = math.floor((int(isiquad[i + 1]) + int(isiquad[i])) / 2)
+            b = int(teks[j])
             # v.append(vtemp)
             vtemp = expandable(v, m, b)
-            # print(v, m, b, vtemp, j)
             if vtemp != 0:
+                lx.append([b, teks[j], j, vtemp, x])
+            # print(v, m, b, vtemp, j)
+            if vtemp != "aduh":
                 uaksen1 = m + math.floor((vtemp + 1) / 2)
                 uaksen2 = m - math.floor(vtemp / 2)
 
                 pair[x] = [uaksen1, uaksen2]
+                # if b == 1:
+                #     lx.append([pair[x], x])
                 j += 1
             i += 1
             x += 1
@@ -120,7 +125,7 @@ print(list(LMFileByteArray))
 LMFile.write(LMFileByteArray)
 LMFile.close()
 
-print(len(lm), panjangteks, lm.count(0), lm.count(1), lm.count(2))
+print(len(lm), panjangteks, lm.count(0), lm.count(1), lm.count(2), lx[:6])
 # print(pair)
 # # print(head)
 # print(lm.count(2))
