@@ -2,7 +2,7 @@ import numpy as np
 import wave
 from scipy.io.wavfile import write
 
-spf = wave.open('Bruno_Mars_Versace_On_The_Floor.wav','r')
+spf = wave.open('testttt.wav','r')
 
 #Extract Raw Audio from Wav File
 signal = spf.readframes(-1)
@@ -24,4 +24,4 @@ tulis = np.append(tulis, tail)
 tulis.astype(np.int8)
 # print(tulis)
 
-write('test.wav', 44100, tulis)
+write('testttt2.wav', 44100, tulis)

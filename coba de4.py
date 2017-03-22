@@ -5,7 +5,7 @@ import math
 import TA.pesan
 import pickle
 
-spf = wave.open('Bruno_Mars_Versace_On_The_Floor.wav', 'r')
+spf = wave.open('testttt.wav', 'r')
 
 # Extract Raw Audio from Wav File
 signal = spf.readframes(-1)
@@ -38,14 +38,19 @@ def expandable(v, m, b):
     vtemp = 2 * v + b
     if 128 <= m <= 255:
         if abs(vtemp) <= 2 * (255 - m):
-            lm.append(0)
-            print(vtemp)
+            if v == 0 or v == -1:
+                lm.append(0)
+            else:
+                lm.append(1)
             return vtemp
         else:
             return changeable(v, m, b)
     elif 0 <= m <= 127:
         if abs(vtemp) <= 2 * m + 1:
-            lm.append(0)
+            if v == 0 or v == -1:
+                lm.append(0)
+            else:
+                lm.append(1)
             return vtemp
         else:
             return changeable(v, m, b)
@@ -55,19 +60,20 @@ def changeable(v, m, b):
     vtemp = 2 * math.floor(v / 2) + b
     if 128 <= m <= 255:
         if abs(vtemp) <= 2 * (255 - m):
-            lm.append(1)
+            lm.append(2)
             return vtemp
     elif 0 <= m <= 127:
         if abs(vtemp) <= 2 * m + 1:
-            lm.append(1)
+            lm.append(2)
             return vtemp
     else:
         return unchangeable()
 
 
 def unchangeable():
-    lm.append(2)
+    lm.append(3)
     return "aduh"
+
 lx = []
 j = 0
 for isiquad in pair:
@@ -107,7 +113,7 @@ tulis.astype(np.uint8)
 print(tulis.size, size)
 print(tulis)
 #
-write('test54.wav', 44100, tulis)
+write('test.wav', 44100, tulis)
 
 # with open('lm', 'wb') as lmfile:
 #     pickle.dump(lm, lmfile)
@@ -118,10 +124,10 @@ write('test54.wav', 44100, tulis)
 #
 # lmfile.close()
 
-LMFile = open("lm", "wb")
+LMFile = open("lm2", "wb")
 LMFileByteArray = bytes(lm)
-print(LMFileByteArray)
-print(list(LMFileByteArray))
+# print(LMFileByteArray)
+# print(list(LMFileByteArray))
 LMFile.write(LMFileByteArray)
 LMFile.close()
 
