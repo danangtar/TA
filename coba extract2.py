@@ -7,7 +7,7 @@ import bitarray
 
 ba = bitarray.bitarray()
 
-spf = wave.open('test.wav', 'r')
+spf = wave.open('test4.wav', 'r')
 
 # Extract Raw Audio from Wav File
 signal = spf.readframes(-1)
@@ -25,7 +25,7 @@ tail = signal[headlen:]
 
 pair = head.reshape((-1, 2))
 
-with open("lm2", mode='rb') as file: # b is important -> binary
+with open("lm4", mode='rb') as file: # b is important -> binary
     fileContent = file.read()
 
 fileContent = list(fileContent)
@@ -76,7 +76,7 @@ tulis = pair.reshape(1, -1)
 #     print("ok")
 tulis = np.append(tulis, tail)
 tulis.astype(np.uint8)
-write('return.wav', 44100, tulis)
+write('returnn.wav', 44100, tulis)
 
 # print(message)
 
