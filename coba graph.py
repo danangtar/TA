@@ -4,7 +4,7 @@ import wave
 import sys
 
 
-spf = wave.open('Bruno_Mars_Versace_On_The_Floor.wav','r')
+spf = wave.open('testttt2.wav','r')
 
 #Extract Raw Audio from Wav File
 signal = spf.readframes(-1)

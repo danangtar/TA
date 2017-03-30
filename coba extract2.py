@@ -38,8 +38,8 @@ for isiquad in pair:
     i = 0
     if j < len(fileContent):
         while i < 1:
-            v = int(isiquad[i + 1]) - int(isiquad[i])
-            m = math.floor((int(isiquad[i + 1]) + int(isiquad[i])) / 2)
+            v = int(isiquad[i]) - int(isiquad[i + 1])
+            m = math.floor((int(isiquad[i]) + int(isiquad[i + 1])) / 2)
             b = v & 1
             if fileContent[j] == 0:
                 v = math.floor(v / 2)
@@ -55,7 +55,9 @@ for isiquad in pair:
                     v = 2 * math.floor(v / 2) + b
                     lx.append(3)
 
-            pair[j] = [m + math.floor((v + 1) / 2), m - math.floor((v / 2))]
+            # print(pair[j], m, v, "before")
+            pair[j] = [m + math.floor((v + 1) / 2), m - math.floor(v / 2)]
+            # print(pair[j], "after")
             message.append(b)
 
             j += 1
@@ -66,6 +68,7 @@ for isiquad in pair:
 
 
 pair = np.asarray(pair, dtype=np.uint8)
+print(pair)
 
 tulis = pair.reshape(1, -1)
 # print(tulis.size, head.size)

@@ -80,8 +80,8 @@ for isiquad in pair:
     i = 0
     if j < panjangteks:
         while i < 1:
-            v = int(isiquad[i + 1]) - int(isiquad[i])
-            m = math.floor((int(isiquad[i + 1]) + int(isiquad[i])) / 2)
+            v = int(isiquad[i]) - int(isiquad[i + 1])
+            m = math.floor((int(isiquad[i]) + int(isiquad[i + 1])) / 2)
             b = int(teks[j])
             # v.append(vtemp)
             vtemp = expandable(v, m, b)
@@ -131,7 +131,7 @@ LMFileByteArray = bytes(lm)
 LMFile.write(LMFileByteArray)
 LMFile.close()
 
-print(len(lm), panjangteks, lm.count(0), lm.count(1), lm.count(2), lx[:6])
-# print(pair)
+# print(len(lm), panjangteks, lm.count(0), lm.count(1), lm.count(2), lx[:6])
+print(head.reshape((-1, 2)))
 # # print(head)
 # print(lm.count(2))
