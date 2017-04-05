@@ -1,7 +1,6 @@
 import numpy as np
 from scipy.io.wavfile import write
 import wave
-import math
 import TA.pesan
 import pickle
 
@@ -21,7 +20,7 @@ headlen = size - mod[1]
 head = signal[:headlen]
 tail = signal[headlen:]
 
-pair = head.reshape((-1, 4))
+pair = head.reshape((-1, 2))
 y = pair.size
 pair = pair.tolist()
 x = 0
@@ -51,7 +50,7 @@ def expandable(v, m, b):
 
 
 def changeable(v, m, b):
-    vtemp = 2 * math.floor(v / 2) + b
+    vtemp = 2 * np.floor(v / 2) + b
     if 128 <= m <= 255:
         if abs(vtemp) <= 2 * (255 - m):
             lm.append(1)
@@ -75,7 +74,7 @@ for isiquad in pair:
     if j < panjangteks:
         while i < 1:
             v = int(isiquad[i]) - int(isiquad[i + 1])
-            m = math.floor((int(isiquad[i]) + int(isiquad[i + 1])) / 2)
+            m = np.floor((int(isiquad[i]) + int(isiquad[i + 1])) / 2)
             b = int(teks[j])
             # v.append(vtemp)
             vtemp = expandable(v, m, b)
@@ -83,8 +82,8 @@ for isiquad in pair:
                 lx.append([b, teks[j], j, vtemp, x])
             # print(v, m, b, vtemp, j)
             if vtemp != "aduh":
-                uaksen1 = m + math.floor((vtemp + 1) / 2)
-                uaksen2 = m - math.floor(vtemp / 2)
+                uaksen1 = m + np.floor((vtemp + 1) / 2)
+                uaksen2 = m - np.floor(vtemp / 2)
 
                 pair[x] = [uaksen1, uaksen2]
                 # if b == 1:
