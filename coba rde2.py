@@ -32,18 +32,23 @@ panjangteks = len(teks)
 print(teks)
 print(pair)
 
-def expandable(v, m, b):
+def expandable(v, m, b, rde):
     vtemp = 2 * v + b
     if 128 <= m <= 255:
         if abs(vtemp) <= 2 * (255 - m):
-            lm.append(0)
-            print(vtemp)
+            if rde:
+                lm.append(0)
+            else:
+                lm.append(1)
             return vtemp
         else:
-            return changeable(v, m, b)
+            return changeable(v, m, b, rde)
     elif 0 <= m <= 127:
         if abs(vtemp) <= 2 * m + 1:
-            lm.append(0)
+            if rde:
+                lm.append(0)
+            else:
+                lm.append(1)
             return vtemp
         else:
             return changeable(v, m, b)
@@ -53,35 +58,44 @@ def changeable(v, m, b):
     vtemp = 2 * np.floor(v / 2) + b
     if 128 <= m <= 255:
         if abs(vtemp) <= 2 * (255 - m):
-            lm.append(1)
+            lm.append(2)
             return vtemp
+        else:
+            return unchangeable()
     elif 0 <= m <= 127:
         if abs(vtemp) <= 2 * m + 1:
-            lm.append(1)
+            lm.append(2)
             return vtemp
-    else:
-        return unchangeable()
+        else:
+            return unchangeable()
 
 
 def unchangeable():
-    lm.append(2)
+    lm.append(3)
     return "aduh"
 
 lx = []
 j = 0
+rde = False
+
 for isiquad in pair:
     i = 0
     if j < panjangteks:
         while i < 1:
             v = int(isiquad[i]) - int(isiquad[i + 1])
-            if v < 2:
+            if -2 < v < 2:
                 vr = v
+                rde = False
+            elif v <= -2:
+                vr = v + 2 ** (np.floor(np.log2(v)) - 1)
+                rde = True
             elif v >= 2:
-                vr = v - 2**(np.floor(np.log2(v))-1)
+                vr = v - 2 ** (np.floor(np.log2(v)) - 1)
+                rde = True
             m = np.floor((int(isiquad[i]) + int(isiquad[i + 1])) / 2)
             b = int(teks[j])
             # v.append(vtemp)
-            vtemp = expandable(v, m, b)
+            vtemp = expandable(v, m, b, rde)
             if vtemp != 0:
                 lx.append([b, teks[j], j, vtemp, x])
             # print(v, m, b, vtemp, j)
@@ -110,7 +124,7 @@ tulis.astype(np.uint8)
 print(tulis.size, size)
 print(tulis)
 #
-write('test4.wav', 44100, tulis)
+write('testrde.wav', 44100, tulis)
 
 # with open('lm', 'wb') as lmfile:
 #     pickle.dump(lm, lmfile)
@@ -121,7 +135,7 @@ write('test4.wav', 44100, tulis)
 #
 # lmfile.close()
 
-LMFile = open("lm4", "wb")
+LMFile = open("lmrde", "wb")
 LMFileByteArray = bytes(lm)
 # print(LMFileByteArray)
 # print(list(LMFileByteArray))

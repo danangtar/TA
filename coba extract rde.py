@@ -44,11 +44,19 @@ for isiquad in pair:
 
             vr = np.floor(v / 2)
 
-            if vr > 0:
-                if 1:
-                    v = vr + 2**np.log2(abs())
-
             if fileContent[j] == 0:
+                if vr > 0:
+                    if 1:
+                        v = vr + 2 ** np.log2(np.absolute(vr)) - 1
+                    elif 0:
+                        v = vr + 2 ** np.log2(np.absolute(vr))
+                elif vr < 0:
+                    if 1:
+                        v = vr - 2 ** np.log2(np.absolute(vr)) - 1
+                    elif 0:
+                        v = vr - 2 ** np.log2(np.absolute(vr))
+
+            elif fileContent[j] == 0:
                 v = math.floor(v / 2)
                 lx.append(0)
             else:
