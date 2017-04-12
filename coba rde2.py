@@ -32,23 +32,29 @@ panjangteks = len(teks)
 print(teks)
 print(pair)
 
-def expandable(v, m, b, rde):
+def expandable(v, m, b, rde, location_map):
     vtemp = 2 * v + b
     if 128 <= m <= 255:
         if abs(vtemp) <= 2 * (255 - m):
             if rde:
-                lm.append(0)
+                if location_map:
+                    lm.append(0)
+                else:
+                    lm.append(1)
             else:
-                lm.append(1)
+                lm.append(2)
             return vtemp
         else:
-            return changeable(v, m, b, rde)
+            return changeable(v, m, b)
     elif 0 <= m <= 127:
         if abs(vtemp) <= 2 * m + 1:
             if rde:
-                lm.append(0)
+                if location_map:
+                    lm.append(0)
+                else:
+                    lm.append(1)
             else:
-                lm.append(1)
+                lm.append(2)
             return vtemp
         else:
             return changeable(v, m, b)
@@ -58,27 +64,29 @@ def changeable(v, m, b):
     vtemp = 2 * np.floor(v / 2) + b
     if 128 <= m <= 255:
         if abs(vtemp) <= 2 * (255 - m):
-            lm.append(2)
+            lm.append(3)
             return vtemp
         else:
             return unchangeable()
     elif 0 <= m <= 127:
         if abs(vtemp) <= 2 * m + 1:
-            lm.append(2)
+            lm.append(3)
             return vtemp
         else:
             return unchangeable()
 
 
 def unchangeable():
-    lm.append(3)
+    lm.append(4)
     return "aduh"
 
 lx = []
 j = 0
-rde = False
+
 
 for isiquad in pair:
+    rde = False
+    location_map = False
     i = 0
     if j < panjangteks:
         while i < 1:
@@ -87,15 +95,20 @@ for isiquad in pair:
                 vr = v
                 rde = False
             elif v <= -2:
-                vr = v + 2 ** (np.floor(np.log2(v)) - 1)
+                vr = v + 2 ** (np.floor(np.log2(np.absolute(v))) - 1)
                 rde = True
             elif v >= 2:
-                vr = v - 2 ** (np.floor(np.log2(v)) - 1)
+                vr = v - 2 ** (np.floor(np.log2(np.absolute(v))) - 1)
                 rde = True
+
+            if rde:
+                if 2 ** (np.floor(np.log2(np.absolute(vr)))) == 2 ** (np.floor(np.log2(np.absolute(v)))):
+                    location_map = True
+
             m = np.floor((int(isiquad[i]) + int(isiquad[i + 1])) / 2)
             b = int(teks[j])
             # v.append(vtemp)
-            vtemp = expandable(v, m, b, rde)
+            vtemp = expandable(vr, m, b, rde, location_map)
             if vtemp != 0:
                 lx.append([b, teks[j], j, vtemp, x])
             # print(v, m, b, vtemp, j)

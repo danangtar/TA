@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 class DE:
     def __init__(self):
@@ -38,3 +39,44 @@ class DE:
 
     def getlm(self):
         return self.lm
+
+    def expands(self):
+        j = 0
+        for isiquad in pair:
+            i = 0
+            if j < panjangteks:
+                while i < 1:
+                    v = int(isiquad[i]) - int(isiquad[i + 1])
+                    m = np.floor((int(isiquad[i]) + int(isiquad[i + 1])) / 2)
+                    b = int(teks[j])
+
+                    vtemp = self.expandable(v, m, b)
+
+                    if vtemp != "aduh":
+                        uaksen1 = m + np.floor((vtemp + 1) / 2)
+                        uaksen2 = m - np.floor(vtemp / 2)
+
+                        pair[x] = [uaksen1, uaksen2]
+                        # if b == 1:
+                        #     lx.append([pair[x], x])
+                        j += 1
+                    i += 1
+                    x += 1
+                    # print(x, y)
+            else:
+                break
+
+    def expand(self, isiquad, teks):
+        v = int(isiquad[i]) - int(isiquad[i + 1])
+        m = np.floor((int(isiquad[i]) + int(isiquad[i + 1])) / 2)
+        b = int(teks[j])
+
+        vtemp = self.expandable(v, m, b)
+
+        return vtemp
+
+    def embed(self, m, vtemp):
+        uaksen1 = m + np.floor((vtemp + 1) / 2)
+        uaksen2 = m - np.floor(vtemp / 2)
+
+        return [uaksen1, uaksen2]

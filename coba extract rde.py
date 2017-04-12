@@ -1,13 +1,12 @@
 import numpy as np
 from scipy.io.wavfile import write
 import wave
-import math
 import binascii
 import bitarray
 
 ba = bitarray.bitarray()
 
-spf = wave.open('test4.wav', 'r')
+spf = wave.open('testrde.wav', 'r')
 
 # Extract Raw Audio from Wav File
 signal = spf.readframes(-1)
@@ -25,7 +24,7 @@ tail = signal[headlen:]
 
 pair = head.reshape((-1, 2))
 
-with open("lm4", mode='rb') as file: # b is important -> binary
+with open("lmrde", mode='rb') as file: # b is important -> binary
     fileContent = file.read()
 
 fileContent = list(fileContent)
@@ -39,39 +38,43 @@ for isiquad in pair:
     if j < len(fileContent):
         while i < 1:
             v = int(isiquad[i]) - int(isiquad[i + 1])
-            m = math.floor((int(isiquad[i]) + int(isiquad[i + 1])) / 2)
+            m = np.floor((int(isiquad[i]) + int(isiquad[i + 1])) / 2)
             b = v & 1
 
             vr = np.floor(v / 2)
 
             if fileContent[j] == 0:
                 if vr > 0:
-                    if 1:
-                        v = vr + 2 ** np.log2(np.absolute(vr)) - 1
-                    elif 0:
-                        v = vr + 2 ** np.log2(np.absolute(vr))
+                    v = vr + 2**(np.floor(np.log2(np.absolute(vr)))-1)
+                    lx.append(0)
                 elif vr < 0:
-                    if 1:
-                        v = vr - 2 ** np.log2(np.absolute(vr)) - 1
-                    elif 0:
-                        v = vr - 2 ** np.log2(np.absolute(vr))
+                    v = vr - 2**(np.floor(np.log2(np.absolute(vr)))-1)
+                    lx.append(1)
 
-            elif fileContent[j] == 0:
-                v = math.floor(v / 2)
-                lx.append(0)
+            elif fileContent[j] == 1:
+                if vr > 0:
+                    v = vr + 2**np.floor(np.log2(np.absolute(vr)))
+                    lx.append(2)
+                elif vr < 0:
+                    v = vr - 2**np.floor(np.log2(np.absolute(vr)))
+                    lx.append(3)
+
+            elif fileContent[j] == 2:
+                v = np.floor(v / 2)
+                lx.append(4)
             else:
                 if 0 <= v <= 1:
                     v = 1
-                    lx.append(1)
+                    lx.append(5)
                 elif -2 <= v <= -1:
                     v = -2
-                    lx.append(2)
+                    lx.append(6)
                 else:
-                    v = 2 * math.floor(v / 2) + b
-                    lx.append(3)
+                    v = 2 * np.floor(v / 2) + b
+                    lx.append(7)
 
             # print(pair[j], m, v, "before")
-            pair[j] = [m + math.floor((v + 1) / 2), m - math.floor(v / 2)]
+            pair[j] = [m + np.floor((v + 1) / 2), m - np.floor(v / 2)]
             # print(pair[j], "after")
             message.append(b)
 
@@ -91,7 +94,7 @@ tulis = pair.reshape(1, -1)
 #     print("ok")
 tulis = np.append(tulis, tail)
 tulis.astype(np.uint8)
-write('returnn.wav', 44100, tulis)
+write('returnrde.wav', 44100, tulis)
 
 # print(message)
 
@@ -104,8 +107,8 @@ write = binascii.unhexlify('%x' % n)
 
 # print(write)
 
-f = open('hasyil2.txt', 'wb')
+f = open('hasyilrde.txt', 'wb')
 f.write(write)
 f.close()
 
-print(lx.count(0), lx.count(1), lx.count(2), lx.count(3))
+print(lx.count(0), lx.count(1), lx.count(2), lx.count(3), lx.count(4), lx.count(5), lx.count(6), lx.count(7))

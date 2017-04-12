@@ -106,7 +106,7 @@ tulis.astype(np.uint8)
 print(tulis.size, size)
 print(tulis)
 #
-write('test4.wav', 44100, tulis)
+write('testde.wav', 44100, tulis)
 
 # with open('lm', 'wb') as lmfile:
 #     pickle.dump(lm, lmfile)
@@ -117,7 +117,7 @@ write('test4.wav', 44100, tulis)
 #
 # lmfile.close()
 
-LMFile = open("lm4", "wb")
+LMFile = open("lmde", "wb")
 LMFileByteArray = bytes(lm)
 # print(LMFileByteArray)
 # print(list(LMFileByteArray))

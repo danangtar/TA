@@ -1,13 +1,12 @@
 import numpy as np
 from scipy.io.wavfile import write
 import wave
-import math
 import binascii
 import bitarray
 
 ba = bitarray.bitarray()
 
-spf = wave.open('test4.wav', 'r')
+spf = wave.open('testde.wav', 'r')
 
 # Extract Raw Audio from Wav File
 signal = spf.readframes(-1)
@@ -25,7 +24,7 @@ tail = signal[headlen:]
 
 pair = head.reshape((-1, 2))
 
-with open("lm4", mode='rb') as file: # b is important -> binary
+with open("lmde", mode='rb') as file: # b is important -> binary
     fileContent = file.read()
 
 fileContent = list(fileContent)
@@ -39,10 +38,10 @@ for isiquad in pair:
     if j < len(fileContent):
         while i < 1:
             v = int(isiquad[i]) - int(isiquad[i + 1])
-            m = math.floor((int(isiquad[i]) + int(isiquad[i + 1])) / 2)
+            m = np.floor((int(isiquad[i]) + int(isiquad[i + 1])) / 2)
             b = v & 1
             if fileContent[j] == 0:
-                v = math.floor(v / 2)
+                v = np.floor(v / 2)
                 lx.append(0)
             else:
                 if 0 <= v <= 1:
@@ -52,11 +51,11 @@ for isiquad in pair:
                     v = -2
                     lx.append(2)
                 else:
-                    v = 2 * math.floor(v / 2) + b
+                    v = 2 * np.floor(v / 2) + b
                     lx.append(3)
 
             # print(pair[j], m, v, "before")
-            pair[j] = [m + math.floor((v + 1) / 2), m - math.floor(v / 2)]
+            pair[j] = [m + np.floor((v + 1) / 2), m - np.floor(v / 2)]
             # print(pair[j], "after")
             message.append(b)
 
@@ -76,7 +75,7 @@ tulis = pair.reshape(1, -1)
 #     print("ok")
 tulis = np.append(tulis, tail)
 tulis.astype(np.uint8)
-write('returnn.wav', 44100, tulis)
+write('returnde.wav', 44100, tulis)
 
 # print(message)
 
@@ -89,7 +88,7 @@ write = binascii.unhexlify('%x' % n)
 
 # print(write)
 
-f = open('hasyil2.txt', 'wb')
+f = open('hasyilde.txt', 'wb')
 f.write(write)
 f.close()
 
