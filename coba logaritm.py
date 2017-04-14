@@ -27,7 +27,14 @@ import numpy as np
 #         print(v, vr + 2**np.floor(np.log2(np.absolute(vr))), " ", 2 ** (np.floor(np.log2(np.absolute(vr)))), 2 ** (np.floor(np.log2(np.absolute(v)))))
 #     v += 1
 
-i = 0
-while i < 3:
-    print(i+1, i)
-    i += 1
+# i = 0
+# while i < 3:
+#     print(i+1, i)
+#     i += 1
+
+a = []
+
+a.append(0)
+a.append(1)
+
+print(a[1])

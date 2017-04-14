@@ -32,7 +32,7 @@ panjangteks = len(teks)
 print(teks)
 print(pair)
 
-def expandable(v, m, b, rde, location_map):
+def expandable(v, b, rde, location_map):
     vtemp = 2 * v + b
     if 128 <= m <= 255:
         if abs(vtemp) <= 2 * (255 - m):
@@ -45,7 +45,7 @@ def expandable(v, m, b, rde, location_map):
                 lm.append(2)
             return vtemp
         else:
-            return changeable(v, m, b)
+            return changeable(v, b)
     elif 0 <= m <= 127:
         if abs(vtemp) <= 2 * m + 1:
             if rde:
@@ -57,10 +57,10 @@ def expandable(v, m, b, rde, location_map):
                 lm.append(2)
             return vtemp
         else:
-            return changeable(v, m, b)
+            return changeable(v, b)
 
 
-def changeable(v, m, b):
+def changeable(v, b):
     vtemp = 2 * np.floor(v / 2) + b
     if 128 <= m <= 255:
         if abs(vtemp) <= 2 * (255 - m):
@@ -87,10 +87,12 @@ uaksen = []
 for isiquad in pair:
     rde = False
     location_map = False
-    i = 0
+    i = 1
+    vq = [0]
     if j < panjangteks:
         while i < 3:
             v = int(isiquad[i + 1]) - int(isiquad[0])
+
             if -2 < v < 2:
                 vr = v
                 rde = False
@@ -105,18 +107,19 @@ for isiquad in pair:
                 if 2 ** (np.floor(np.log2(np.absolute(vr)))) == 2 ** (np.floor(np.log2(np.absolute(v)))):
                     location_map = True
 
-            m = np.floor((int(isiquad[i]) + int(isiquad[i + 1])) / 2)
+            vq.append(vr)
+
             b = int(teks[j])
             # v.append(vtemp)
-            vtemp = expandable(vr, m, b, rde, location_map)
+            vtemp = expandable(vr, b, rde, location_map)
             if vtemp != 0:
                 lx.append([b, teks[j], j, vtemp, x])
             # print(v, m, b, vtemp, j)
             if vtemp != "aduh":
                 if i == 0:
-                    uaksen[i] = int(isiquad[0])
+                    uaksen.append(v[0])
                 else:
-                    uaksen[i] = vtemp + int(isiquad[0])
+                    uaksen.append(vtemp + int(isiquad[0]))
 
                 # pair[x] = [uaksen1, uaksen2]
                 # if b == 1:
@@ -125,7 +128,7 @@ for isiquad in pair:
             i += 1
             x += 1
             # print(x, y)
-        pair[x] = [uaksen[0], uaksen]
+        pair[x] = [uaksen[0], uaksen[1], uaksen[2], uaksen[3]]
     else:
         break
 
