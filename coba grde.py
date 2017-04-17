@@ -23,8 +23,6 @@ tail = signal[headlen:]
 pair = head.reshape((-1, 4))
 y = pair.size
 pair = pair.tolist()
-x = 0
-lm = []
 
 teks = TA.pesan.Pesan()
 teks = teks.getBinary()
@@ -32,63 +30,46 @@ panjangteks = len(teks)
 print(teks)
 print(pair)
 
-def expandable(v, b, rde, location_map):
+
+def expandable(v, b, u0, rde, location_map):
     vtemp = 2 * v + b
-    if 128 <= m <= 255:
-        if abs(vtemp) <= 2 * (255 - m):
-            if rde:
-                if location_map:
-                    lm.append(0)
-                else:
-                    lm.append(1)
+    if 0 <= vtemp + u0 <= 255:
+        if rde:
+            if location_map:
+                lm.append(0)
             else:
-                lm.append(2)
-            return vtemp
+                lm.append(1)
         else:
-            return changeable(v, b)
-    elif 0 <= m <= 127:
-        if abs(vtemp) <= 2 * m + 1:
-            if rde:
-                if location_map:
-                    lm.append(0)
-                else:
-                    lm.append(1)
-            else:
-                lm.append(2)
-            return vtemp
-        else:
-            return changeable(v, b)
+            lm.append(2)
+        return vtemp
+    else:
+        return changeable(v, b, u0)
 
 
-def changeable(v, b):
+def changeable(v, b, u0):
     vtemp = 2 * np.floor(v / 2) + b
-    if 128 <= m <= 255:
-        if abs(vtemp) <= 2 * (255 - m):
-            lm.append(3)
-            return vtemp
-        else:
-            return unchangeable()
-    elif 0 <= m <= 127:
-        if abs(vtemp) <= 2 * m + 1:
-            lm.append(3)
-            return vtemp
-        else:
-            return unchangeable()
+    if 0 <= vtemp + u0 <= 255:
+        lm.append(3)
+        return vtemp
+    else:
+        return unchangeable()
 
 
 def unchangeable():
     lm.append(4)
     return "aduh"
 
-lx = []
+x = 0
+lm = []
+# lx = []
 j = 0
-uaksen = []
 
 for isiquad in pair:
     rde = False
     location_map = False
     i = 1
     vq = [0]
+    uaksen = [int(isiquad[0])]
     if j < panjangteks:
         while i < 3:
             v = int(isiquad[i + 1]) - int(isiquad[0])
@@ -111,15 +92,12 @@ for isiquad in pair:
 
             b = int(teks[j])
             # v.append(vtemp)
-            vtemp = expandable(vr, b, rde, location_map)
-            if vtemp != 0:
-                lx.append([b, teks[j], j, vtemp, x])
+            vtemp = expandable(vr, b, int(isiquad[0]), rde, location_map)
+            # if vtemp != 0:
+            #     lx.append([b, teks[j], j, vtemp, x])
             # print(v, m, b, vtemp, j)
             if vtemp != "aduh":
-                if i == 0:
-                    uaksen.append(v[0])
-                else:
-                    uaksen.append(vtemp + int(isiquad[0]))
+                uaksen.append(vtemp + int(isiquad[0]))
 
                 # pair[x] = [uaksen1, uaksen2]
                 # if b == 1:
