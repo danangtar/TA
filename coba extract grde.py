@@ -35,10 +35,10 @@ lx = []
 j = 0
 for isiquad in pair:
     i = 0
+    uaksen = [int(isiquad[0])]
     if j < len(fileContent):
         while i < 3:
-            v = int(isiquad[i]) - int(isiquad[i + 1])
-            m = np.floor((int(isiquad[i]) + int(isiquad[i + 1])) / 2)
+            v = int(isiquad[i + 1]) - int(isiquad[0])
             b = v & 1
 
             vr = np.floor(v / 2)
@@ -74,7 +74,7 @@ for isiquad in pair:
                     lx.append(7)
 
             # print(pair[j], m, v, "before")
-            pair[j] = [m + np.floor((v + 1) / 2), m - np.floor(v / 2)]
+            pair[j] = [uaksen[0], uaksen[1], uaksen[2], uaksen[3]]
             # print(pair[j], "after")
             message.append(b)
 
@@ -100,7 +100,7 @@ write('returnrde.wav', 44100, tulis)
 message = np.array(message, dtype=bool)
 message = message.tolist()
 
-n = int(bitarray.bitarray(message).tostring(), 2)
+n = int(bitarray.bitarray(message[:-(len(message) % 8)]).tostring(), 2)
 
 write = binascii.unhexlify('%x' % n)
 

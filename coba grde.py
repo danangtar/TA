@@ -31,7 +31,7 @@ print(teks)
 print(pair)
 
 
-def expandable(v, b, u0, rde, location_map, falsebit):
+def expandable(v, b, u0, rde, location_map):
     vtemp = 2 * v + b
     if 0 <= vtemp + u0 <= 255:
         if rde:
@@ -93,10 +93,10 @@ for isiquad in pair:
 
             if j < panjangteks:
                 b = int(teks[j])
-                vtemp = expandable(vr, b, int(isiquad[0]), rde, location_map, False)
             else:
                 b = 0
-                vtemp = expandable(vr, b, int(isiquad[0]), rde, location_map, True)
+
+            vtemp = expandable(vr, b, int(isiquad[0]), rde, location_map)
 
             if vtemp != "aduh":
                 uaksen.append(vtemp + int(isiquad[0]))
