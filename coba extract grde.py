@@ -107,7 +107,7 @@ write = binascii.unhexlify('%x' % n)
 
 # print(write)
 
-f = open('hasyilrde.txt', 'wb')
+f = open('hasyilgrde.txt', 'wb')
 f.write(write)
 f.close()
 

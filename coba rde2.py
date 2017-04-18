@@ -3,6 +3,7 @@ from scipy.io.wavfile import write
 import wave
 import TA.pesan
 import pickle
+import bz2
 
 spf = wave.open('testttt.wav', 'r')
 
@@ -139,12 +140,14 @@ print(tulis)
 #
 write('testrde.wav', 44100, tulis)
 
-# with open('lm', 'wb') as lmfile:
+# with open('lmpickle', 'wb') as lmfile:
 #     pickle.dump(lm, lmfile)
 #
 # lmfile = open('lmun.txt', 'w')
-# for item in lm:
-#   lmfile.write("%s\n" % item)
+# str1 = ''.join(str(e) for e in lm)
+# str1 = bz2.compress(str1.encode("utf-8"))
+# for item in str1:
+#     lmfile.write("%s" % item)
 #
 # lmfile.close()
 

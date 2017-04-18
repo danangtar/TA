@@ -31,7 +31,7 @@ print(teks)
 print(pair)
 
 
-def expandable(v, b, u0, rde, location_map):
+def expandable(v, b, u0, rde, location_map, falsebit):
     vtemp = 2 * v + b
     if 0 <= vtemp + u0 <= 255:
         if rde:
@@ -71,8 +71,7 @@ lm = []
 for isiquad in pair:
     rde = False
     location_map = False
-    i = 1
-    vq = [0]
+    i = 0
     uaksen = [int(isiquad[0])]
     if j < panjangteks:
         while i < 3:
@@ -92,11 +91,12 @@ for isiquad in pair:
                 if 2 ** (np.floor(np.log2(np.absolute(vr)))) == 2 ** (np.floor(np.log2(np.absolute(v)))):
                     location_map = True
 
-            vq.append(vr)
-
-            b = int(teks[j])
-
-            vtemp = expandable(vr, b, int(isiquad[0]), rde, location_map)
+            if j < panjangteks:
+                b = int(teks[j])
+                vtemp = expandable(vr, b, int(isiquad[0]), rde, location_map, False)
+            else:
+                b = 0
+                vtemp = expandable(vr, b, int(isiquad[0]), rde, location_map, True)
 
             if vtemp != "aduh":
                 uaksen.append(vtemp + int(isiquad[0]))
@@ -108,6 +108,7 @@ for isiquad in pair:
             i += 1
             x += 1
 
+        print(j, panjangteks)
         if 4 in lm[-3:]:
             j -= i
             while i > 0:

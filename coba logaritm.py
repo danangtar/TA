@@ -1,4 +1,5 @@
 import numpy as np
+import zlib
 
 # v = -47
 # # vr = -1
@@ -28,8 +29,8 @@ import numpy as np
 #         print(v, vr + 2**np.floor(np.log2(np.absolute(vr))), " ", 2 ** (np.floor(np.log2(np.absolute(vr)))), 2 ** (np.floor(np.log2(np.absolute(v)))))
 #     v += 1
 
-# i = 1
-# while i < 4:
+# i = 0
+# while i < 3:
 #     print(i+1, i)
 #     i += 1
 #
@@ -39,26 +40,30 @@ import numpy as np
 #     i -= 1
 # print(i)
 
-a = []
-b = [3, 4]
-
-a.append([1, 2])
-a.append(b)
-
-a[-1] = [5, 6]
-
-a[-1] = [0, 0]
-
-a.append([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])
-
-i = 3
-if 0 in a[2][-3:]:
-    while i > 0:
-        a[2][-i] = 11
-        i -= 1
-
-print(a[2][-4:])
+# a = []
+# b = [3, 4]
+#
+# a.append([1, 2])
+# a.append(b)
+#
+# a[-1] = [5, 6]
+#
+# a[-1] = [0, 0]
+#
+# a.append([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])
+#
+# i = 3
+# if 0 in a[2][-3:]:
+#     while i > 0:
+#         a[2][-i] = 11
+#         i -= 1
+#
+# print(a[2][-4:])
 # pair = np.asarray(a, dtype=np.uint8)
 # print(pair)
 # pair = pair.reshape(1, -1)
 # print(pair)
+
+a = '1111111111111111111111111111111111111111111'
+# a = zlib.compress(a.encode("utf-8"))
+print(a.encode("utf-8"))

@@ -27,7 +27,9 @@ pair = head.reshape((-1, 2))
 with open("lmrde", mode='rb') as file: # b is important -> binary
     fileContent = file.read()
 
+# print(fileContent)
 fileContent = list(fileContent)
+# print(fileContent)
 
 message = []
 
@@ -86,7 +88,7 @@ for isiquad in pair:
 
 
 pair = np.asarray(pair, dtype=np.uint8)
-print(pair)
+# print(pair)
 
 tulis = pair.reshape(1, -1)
 # print(tulis.size, head.size)
@@ -111,4 +113,4 @@ f = open('hasyilrde.txt', 'wb')
 f.write(write)
 f.close()
 
-print(lx.count(0), lx.count(1), lx.count(2), lx.count(3), lx.count(4), lx.count(5), lx.count(6), lx.count(7))
+# print(lx.count(0), lx.count(1), lx.count(2), lx.count(3), lx.count(4), lx.count(5), lx.count(6), lx.count(7))
