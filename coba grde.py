@@ -59,10 +59,14 @@ def unchangeable():
     lm.append(4)
     return "aduh"
 
+# x = hitung sample
 x = 0
+
+# j = hitung bit pesan
+j = 0
+
 lm = []
 # lx = []
-j = 0
 
 for isiquad in pair:
     rde = False
@@ -91,22 +95,26 @@ for isiquad in pair:
             vq.append(vr)
 
             b = int(teks[j])
-            # v.append(vtemp)
+
             vtemp = expandable(vr, b, int(isiquad[0]), rde, location_map)
-            # if vtemp != 0:
-            #     lx.append([b, teks[j], j, vtemp, x])
-            # print(v, m, b, vtemp, j)
+
             if vtemp != "aduh":
                 uaksen.append(vtemp + int(isiquad[0]))
-
-                # pair[x] = [uaksen1, uaksen2]
-                # if b == 1:
-                #     lx.append([pair[x], x])
                 j += 1
+            else:
+                uaksen.append(0)
+                j += 1
+
             i += 1
             x += 1
-            # print(x, y)
-        pair[x] = [uaksen[0], uaksen[1], uaksen[2], uaksen[3]]
+
+        if 4 in lm[-3:]:
+            j -= i
+            while i > 0:
+                lm[-i] = 4
+                i -= 1
+        else:
+            pair[x] = [uaksen[0], uaksen[1], uaksen[2], uaksen[3]]
     else:
         break
 
@@ -121,7 +129,7 @@ tulis.astype(np.uint8)
 print(tulis.size, size)
 print(tulis)
 #
-write('testrde.wav', 44100, tulis)
+write('testgrde.wav', 44100, tulis)
 
 # with open('lm', 'wb') as lmfile:
 #     pickle.dump(lm, lmfile)
@@ -132,7 +140,7 @@ write('testrde.wav', 44100, tulis)
 #
 # lmfile.close()
 
-LMFile = open("lmrde", "wb")
+LMFile = open("lmgrde", "wb")
 LMFileByteArray = bytes(lm)
 # print(LMFileByteArray)
 # print(list(LMFileByteArray))

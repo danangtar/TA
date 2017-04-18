@@ -49,9 +49,15 @@ a[-1] = [5, 6]
 
 a[-1] = [0, 0]
 
-a.append([1, 2, 3, 4, 5, 6, 7, 8, 0])
+a.append([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])
 
-print(a[2][-4:].count(0))
+i = 3
+if 0 in a[2][-3:]:
+    while i > 0:
+        a[2][-i] = 11
+        i -= 1
+
+print(a[2][-4:])
 # pair = np.asarray(a, dtype=np.uint8)
 # print(pair)
 # pair = pair.reshape(1, -1)
