@@ -24,7 +24,7 @@ tail = signal[headlen:]
 
 pair = head.reshape((-1, 4))
 
-with open("lmgrde", mode='rb') as file: # b is important -> binary
+with open("lmgrde", mode='rb') as file:  # b is important -> binary
     fileContent = file.read()
 
 fileContent = list(fileContent)
@@ -45,18 +45,18 @@ for isiquad in pair:
 
             if fileContent[j] == 0:
                 if vr > 0:
-                    v = vr + 2**(np.floor(np.log2(np.absolute(vr)))-1)
+                    v = vr + 2 ** (np.floor(np.log2(np.absolute(vr))) - 1)
                     lx.append(0)
                 elif vr < 0:
-                    v = vr - 2**(np.floor(np.log2(np.absolute(vr)))-1)
+                    v = vr - 2 ** (np.floor(np.log2(np.absolute(vr))) - 1)
                     lx.append(1)
 
             elif fileContent[j] == 1:
                 if vr > 0:
-                    v = vr + 2**np.floor(np.log2(np.absolute(vr)))
+                    v = vr + 2 ** np.floor(np.log2(np.absolute(vr)))
                     lx.append(2)
                 elif vr < 0:
-                    v = vr - 2**np.floor(np.log2(np.absolute(vr)))
+                    v = vr - 2 ** np.floor(np.log2(np.absolute(vr)))
                     lx.append(3)
 
             elif fileContent[j] == 2:
@@ -84,7 +84,6 @@ for isiquad in pair:
     else:
         break
 
-
 pair = np.asarray(pair, dtype=np.uint8)
 print(pair)
 
@@ -101,7 +100,7 @@ write('returnrde.wav', 44100, tulis)
 message = np.array(message, dtype=bool)
 message = message.tolist()
 
-n = int(bitarray.bitarray(message).tostring(),2)
+n = int(bitarray.bitarray(message).tostring(), 2)
 
 write = binascii.unhexlify('%x' % n)
 

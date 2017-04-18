@@ -24,7 +24,7 @@ tail = signal[headlen:]
 
 pair = head.reshape((-1, 2))
 
-with open("lmrde", mode='rb') as file: # b is important -> binary
+with open("lmrde", mode='rb') as file:  # b is important -> binary
     fileContent = file.read()
 
 # print(fileContent)
@@ -47,18 +47,18 @@ for isiquad in pair:
 
             if fileContent[j] == 0:
                 if vr > 0:
-                    v = vr + 2**(np.floor(np.log2(np.absolute(vr)))-1)
+                    v = vr + 2 ** (np.floor(np.log2(np.absolute(vr))) - 1)
                     lx.append(0)
                 elif vr < 0:
-                    v = vr - 2**(np.floor(np.log2(np.absolute(vr)))-1)
+                    v = vr - 2 ** (np.floor(np.log2(np.absolute(vr))) - 1)
                     lx.append(1)
 
             elif fileContent[j] == 1:
                 if vr > 0:
-                    v = vr + 2**np.floor(np.log2(np.absolute(vr)))
+                    v = vr + 2 ** np.floor(np.log2(np.absolute(vr)))
                     lx.append(2)
                 elif vr < 0:
-                    v = vr - 2**np.floor(np.log2(np.absolute(vr)))
+                    v = vr - 2 ** np.floor(np.log2(np.absolute(vr)))
                     lx.append(3)
 
             elif fileContent[j] == 2:
@@ -86,7 +86,6 @@ for isiquad in pair:
     else:
         break
 
-
 pair = np.asarray(pair, dtype=np.uint8)
 # print(pair)
 
@@ -103,9 +102,17 @@ write('returnrde.wav', 44100, tulis)
 message = np.array(message, dtype=bool)
 message = message.tolist()
 
-n = int(bitarray.bitarray(message).tostring(),2)
+# print(divmod(len(message), 8))
+#
+# message.append(False)
+# message.append(False)
+# print(divmod(len(message), 8), len(message) % 8)
+
+n = int(bitarray.bitarray(message[:-(len(message) % 8)]).tostring(), 2)
+# print(n)
 
 write = binascii.unhexlify('%x' % n)
+# print(write)
 
 # print(write)
 
