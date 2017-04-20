@@ -20,14 +20,14 @@ import zlib
 # if -3 < -2:
 #     print("yes")
 #
-v=1
-while v<30:
-    vr = v - 2 ** (np.floor(np.log2(np.absolute(v))) - 1)
-    if 2 ** (np.floor(np.log2(np.absolute(vr)))) == 2 ** (np.floor(np.log2(np.absolute(v)))):
-        print(v, vr + 2 ** (np.floor(np.log2(np.absolute(vr))) - 1), " ", 2 ** (np.floor(np.log2(np.absolute(vr)))), 2 ** (np.floor(np.log2(np.absolute(v)))))
-    else:
-        print(v, vr + 2**np.floor(np.log2(np.absolute(vr))), " ", 2 ** (np.floor(np.log2(np.absolute(vr)))), 2 ** (np.floor(np.log2(np.absolute(v)))))
-    v += 1
+# v=1
+# while v<30:
+#     vr = v - 2 ** (np.floor(np.log2(np.absolute(v))) - 1)
+#     if 2 ** (np.floor(np.log2(np.absolute(vr)))) == 2 ** (np.floor(np.log2(np.absolute(v)))):
+#         print(v, vr + 2 ** (np.floor(np.log2(np.absolute(vr))) - 1), " ", 2 ** (np.floor(np.log2(np.absolute(vr)))), 2 ** (np.floor(np.log2(np.absolute(v)))))
+#     else:
+#         print(v, vr + 2**np.floor(np.log2(np.absolute(vr))), " ", 2 ** (np.floor(np.log2(np.absolute(vr)))), 2 ** (np.floor(np.log2(np.absolute(v)))))
+#     v += 1
 
 # i = 0
 # while i < 3:
@@ -67,3 +67,7 @@ while v<30:
 # a = '1111111111111111111111111111111111111111111'
 # # a = zlib.compress(a.encode("utf-8"))
 # print(a.encode("utf-8"))
+
+a = [True, True, False]
+
+print(a.count(False))
