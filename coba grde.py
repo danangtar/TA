@@ -106,9 +106,8 @@ for isiquad in pair:
                 j += 1
 
             i += 1
-            x += 1
 
-        print(j, panjangteks)
+        # print(j, panjangteks)
         if 4 in lm[-3:]:
             j -= i
             while i > 0:
@@ -116,10 +115,13 @@ for isiquad in pair:
                 i -= 1
         else:
             pair[x] = [uaksen[0], uaksen[1], uaksen[2], uaksen[3]]
+            x += 1
     else:
         break
 
+
 pair = np.asarray(pair, dtype=np.uint8)
+print(pair)
 
 tulis = pair.reshape(1, -1)
 # print(tulis.size, head.size)
@@ -132,14 +134,16 @@ print(tulis)
 #
 write('testgrde.wav', 44100, tulis)
 
-# with open('lm', 'wb') as lmfile:
+# with open('lmpickle', 'wb') as lmfile:
 #     pickle.dump(lm, lmfile)
 #
-# lmfile = open('lmun.txt', 'w')
-# for item in lm:
-#   lmfile.write("%s\n" % item)
-#
-# lmfile.close()
+lmfile = open('lmungrde.txt', 'w')
+str1 = ''.join(str(e) for e in lm)
+# str1 = bz2.compress(str1.encode("utf-8"))
+for item in str1:
+    lmfile.write("%s" % item)
+
+lmfile.close()
 
 LMFile = open("lmgrde", "wb")
 LMFileByteArray = bytes(lm)

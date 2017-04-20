@@ -3,6 +3,7 @@ from scipy.io.wavfile import write
 import wave
 import binascii
 import bitarray
+import TA.pesan
 
 ba = bitarray.bitarray()
 
@@ -21,8 +22,9 @@ headlen = size - mod[1]
 
 head = signal[:headlen]
 tail = signal[headlen:]
-
+print(signal[10467])
 pair = head.reshape((-1, 4))
+
 
 with open("lmgrde", mode='rb') as file:  # b is important -> binary
     fileContent = file.read()
@@ -31,8 +33,14 @@ fileContent = list(fileContent)
 
 message = []
 
-lx = []
+# x = hitung sample
+x = 0
+
+# j = hitung bit pesan
 j = 0
+
+lx = []
+
 for isiquad in pair:
     i = 0
     uaksen = [int(isiquad[0])]
@@ -60,7 +68,7 @@ for isiquad in pair:
                     lx.append(3)
 
             elif fileContent[j] == 2:
-                v = np.floor(v / 2)
+                v = vr
                 lx.append(4)
             else:
                 if 0 <= v <= 1:
@@ -73,38 +81,61 @@ for isiquad in pair:
                     v = 2 * np.floor(v / 2) + b
                     lx.append(7)
 
-            # print(pair[j], m, v, "before")
-            pair[j] = [uaksen[0], uaksen[1], uaksen[2], uaksen[3]]
-            # print(pair[j], "after")
-            message.append(b)
+            uaksen.append(v + int(isiquad[0]))
 
+            # if fileContent[j] != 4:
+            message.append(b)
             j += 1
             i += 1
+
+        pair[x] = [uaksen[0], uaksen[1], uaksen[2], uaksen[3]]
+        x += 1
 
     else:
         break
 
 pair = np.asarray(pair, dtype=np.uint8)
-print(pair)
 
 tulis = pair.reshape(1, -1)
+
 # print(tulis.size, head.size)
 # if tulis.size == head.size:
 #     print("ok")
 tulis = np.append(tulis, tail)
 tulis.astype(np.uint8)
-write('returnrde.wav', 44100, tulis)
+print(tulis[10467])
+write('returngrde.wav', 44100, tulis)
 
 # print(message)
 
 message = np.array(message, dtype=bool)
 message = message.tolist()
+lenmes = len(message)
 
-n = int(bitarray.bitarray(message[:-(len(message) % 8)]).tostring(), 2)
+# teks = TA.pesan.Pesan()
+# teks = teks.getBinary()
+
+# print((teks > message)-(teks < message))
+
+# lmfile = open('compare.txt', 'w')
+# # str1 = bz2.compress(str1.encode("utf-8"))
+# for item in message:
+#     lmfile.write("%s," % item)
+#
+# lmfile.write("aduh")
+#
+# for item in teks:
+#     lmfile.write("%s," % item)
+#
+# lmfile.close()
+
+# print(lenmes % 8)
+
+n = int(bitarray.bitarray(message[:-(lenmes % 8)]).tostring(), 2)
 
 write = binascii.unhexlify('%x' % n)
 
-# print(write)
+print(write)
 
 f = open('hasyilgrde.txt', 'wb')
 f.write(write)

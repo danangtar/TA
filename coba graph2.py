@@ -4,7 +4,7 @@ import wave
 import sys
 
 
-spf = wave.open('returnrde.wav','r')
+spf = wave.open('returngrde.wav','r')
 
 #Extract Raw Audio from Wav File
 signal = spf.readframes(-1)
