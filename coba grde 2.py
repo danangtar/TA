@@ -63,7 +63,7 @@ def is_expandable(v0, vtemp):
                 i += 1
 
     if is_ex.count(False) == 0:
-        return 0
+        return [0, vtemps, ex]
     else:
         return if_changeable(v0, vtemp)
 
@@ -88,7 +88,7 @@ def if_changeable(v0, vtemp):
                 i += 1
 
     if is_ch.count(False) == 0:
-        return 1
+        return [1, vtemps, ex]
     else:
         return 2
 
@@ -144,23 +144,26 @@ for isiquad in pair:
             vtemp.append(changeable(vr, b))
 
             i += 1
+            j += 1
 
-        if is_expandable(vs[0], vtemp):
-            lm.append(0)
+        # if is_expandable(vs[0], vtemp):
+        #     lm.append(0)
 
+        vtemps = is_expandable(vs[0], vtemp)
 
-        w_vs = np.floor((vs[0] + vs[1] + vs[2] + vs[3]) / 4)
+        # w_vs = np.floor((vs[0] + vs[1] + vs[2] + vs[3]) / 4)
 
         k = 0
-
-        uaksen[0] = vs[0] - w_vs
-
-        if vtemp != "aduh":
-            uaksen.append(vtemp + int(isiquad[0]))
-            j += 1
-        else:
-            uaksen.append(0)
-            j += 1
+        while k < 3:
+            if k == 0:
+                if vtemps != "aduh":
+                    uaksen[0] = vs[0] - vtemps[1]
+                    k += 1
+                else:
+                    break
+            else:
+                uaksen[k] = vtemp[vtemps[2][k]] + uaksen[0]
+                k += 1
 
         # print(j, panjangteks)
         if 4 in lm[-3:]:

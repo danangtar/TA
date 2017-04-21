@@ -68,6 +68,7 @@ import zlib
 # # a = zlib.compress(a.encode("utf-8"))
 # print(a.encode("utf-8"))
 
-a = [True, True, False]
+a = [True, True, False, [1, 2, 3]]
 
 print(a.count(False))
+print(a[3][2])
