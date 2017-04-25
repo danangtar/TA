@@ -9,6 +9,7 @@ spf = wave.open('testttt.wav','r')
 #Extract Raw Audio from Wav File
 signal = spf.readframes(-1)
 signal = np.fromstring(signal, 'uint8')
+signal = signal[:114441]
 fs = spf.getframerate()
 
 #If Stereo

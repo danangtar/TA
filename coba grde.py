@@ -27,8 +27,8 @@ pair = pair.tolist()
 teks = TA.pesan.Pesan()
 teks = teks.getBinary()
 panjangteks = len(teks)
-print(teks)
-print(pair)
+print(panjangteks)
+# print(pair)
 
 
 def expandable(v, b, u0, rde, location_map):
@@ -115,13 +115,15 @@ for isiquad in pair:
                 i -= 1
         else:
             pair[x] = [uaksen[0], uaksen[1], uaksen[2], uaksen[3]]
-            x += 1
+
+        x += 1
+
     else:
         break
 
 
 pair = np.asarray(pair, dtype=np.uint8)
-print(pair)
+# print(pair)
 
 tulis = pair.reshape(1, -1)
 # print(tulis.size, head.size)
@@ -129,8 +131,8 @@ tulis = pair.reshape(1, -1)
 #     print("ok")
 tulis = np.append(tulis, tail)
 tulis.astype(np.uint8)
-print(tulis.size, size)
-print(tulis)
+# print(tulis.size, size)
+# print(tulis)
 #
 write('testgrde.wav', 44100, tulis)
 

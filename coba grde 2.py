@@ -42,7 +42,7 @@ def changeable(v, b):
 
 
 def is_expandable(v0, vtemp):
-    vtemps = np.floor((vtemp[0]+vtemp[2]+vtemp[4])/4)
+    vtemps = np.floor((v0 + vtemp[0] + vtemp[2] + vtemp[4]) / 4)
     ex = [6, 0, 2, 4]
     is_ex = []
     i = 0
@@ -68,7 +68,7 @@ def is_expandable(v0, vtemp):
         return if_changeable(v0, vtemp)
 
 def if_changeable(v0, vtemp):
-    vtemps = np.floor((vtemp[0] + vtemp[2] + vtemp[4]) / 4)
+    vtemps = np.floor((v0 + vtemp[1] + vtemp[3] + vtemp[5]) / 4)
     ex = [6, 1, 3, 5]
     is_ch = []
     i = 0
@@ -92,7 +92,7 @@ def if_changeable(v0, vtemp):
     else:
         return 2
 
-def unchangeable():
+# def unchangeable():
 
 
 # x = hitung sample
@@ -111,7 +111,6 @@ for isiquad in pair:
     vs = [np.floor((int(isiquad[0]) + int(isiquad[1]) + int(isiquad[2]) + int(isiquad[3])) / 4)]
     vtemp = []
     uaksen = []
-    w_vs = -1
     if j < panjangteks:
         while i < 3:
             v = int(isiquad[i + 1]) - int(isiquad[0])
@@ -146,23 +145,48 @@ for isiquad in pair:
             i += 1
             j += 1
 
-        # if is_expandable(vs[0], vtemp):
-        #     lm.append(0)
 
         vtemps = is_expandable(vs[0], vtemp)
-
-        # w_vs = np.floor((vs[0] + vs[1] + vs[2] + vs[3]) / 4)
+        # print(vs, vtemps)
 
         k = 0
-        while k < 3:
+        while k < 4:
             if k == 0:
-                if vtemps != "aduh":
-                    uaksen[0] = vs[0] - vtemps[1]
+                if vtemps != 2:
+                    uaksen.append(vs[0] - vtemps[1])
                     k += 1
                 else:
                     break
             else:
-                uaksen[k] = vtemp[vtemps[2][k]] + uaksen[0]
+                uaksen.append(vtemp[vtemps[2][k]] + uaksen[0])
+                k += 1
+
+        k = 0
+        while k < 3:
+            if vtemps[0] == 0:
+                if rde[k]:
+                    if location_map[k] == 0:
+                        lm.append(0)
+                        k += 1
+                    elif location_map[k] == 1:
+                        lm.append(1)
+                        k += 1
+                else:
+                    lm.append(2)
+                    k += 1
+            elif vtemps[0] == 1:
+                if rde[k]:
+                    if location_map[k] == 0:
+                        lm.append(3)
+                        k += 1
+                    elif location_map[k] == 1:
+                        lm.append(4)
+                        k += 1
+                else:
+                    lm.append(5)
+                    k += 1
+            elif vtemps[0] == 2:
+                lm.append(6)
                 k += 1
 
         # print(j, panjangteks)
@@ -172,8 +196,11 @@ for isiquad in pair:
                 lm[-i] = 4
                 i -= 1
         else:
+            print(uaksen)
             pair[x] = [uaksen[0], uaksen[1], uaksen[2], uaksen[3]]
-            x += 1
+
+        x += 1
+
     else:
         break
 
@@ -190,12 +217,12 @@ tulis.astype(np.uint8)
 print(tulis.size, size)
 print(tulis)
 #
-write('testgrde.wav', 44100, tulis)
+write('testgrde2.wav', 44100, tulis)
 
 # with open('lmpickle', 'wb') as lmfile:
 #     pickle.dump(lm, lmfile)
 #
-lmfile = open('lmungrde.txt', 'w')
+lmfile = open('lmungrde2.txt', 'w')
 str1 = ''.join(str(e) for e in lm)
 # str1 = bz2.compress(str1.encode("utf-8"))
 for item in str1:
@@ -203,7 +230,7 @@ for item in str1:
 
 lmfile.close()
 
-LMFile = open("lmgrde", "wb")
+LMFile = open("lmgrde2", "wb")
 LMFileByteArray = bytes(lm)
 # print(LMFileByteArray)
 # print(list(LMFileByteArray))
