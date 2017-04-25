@@ -75,6 +75,8 @@ for isiquad in pair:
     uaksen = [int(isiquad[0])]
     if j < panjangteks:
         while i < 3:
+            rde = False
+            location_map = False
             v = int(isiquad[i + 1]) - int(isiquad[i])
 
             if -2 < v < 2:

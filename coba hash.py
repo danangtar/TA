@@ -8,7 +8,7 @@ with open('testttt.wav', 'rb') as afile:
     before.update(buf)
 
 after = hashlib.md5()
-with open('returngrde.wav', 'rb') as afile:
+with open('returnquadrde.wav', 'rb') as afile:
     buf = afile.read()
     after.update(buf)
 
@@ -24,13 +24,19 @@ spf = wave.open('returngrde.wav', 'r')
 
 # Extract Raw Audio from Wav File
 after = spf.readframes(-1)
-after = np.fromstring(after, 'int8')
+after = np.fromstring(after, 'uint8')
+
+spf = wave.open('testgrde.wav', 'r')
+
+# Extract Raw Audio from Wav File
+test = spf.readframes(-1)
+test = np.fromstring(test, 'uint8')
 
 spf = wave.open('testttt.wav','r')
 
 #Extract Raw Audio from Wav File
 before = spf.readframes(-1)
-before = np.fromstring(before, 'int8')
+before = np.fromstring(before, 'uint8')
 
 diffff = after - before
 
@@ -42,7 +48,7 @@ while x < len(diffff):
         i = divmod(x, 4)
         j = i[1]
         k = x - j + 4
-        print(x, before[x], after[x], before[x-j]-before[x], after[x-j]-after[x])
+        print(x, i[0], before[x], before[x-j], test[x], test[x-j], after[x], after[x-j])
     x += 1
 
 # print(diffff)

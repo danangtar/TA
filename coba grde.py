@@ -75,6 +75,8 @@ for isiquad in pair:
     uaksen = [int(isiquad[0])]
     if j < panjangteks:
         while i < 3:
+            rde = False
+            location_map = False
             v = int(isiquad[i + 1]) - int(isiquad[0])
 
             if -2 < v < 2:
@@ -87,9 +89,8 @@ for isiquad in pair:
                 vr = v - 2 ** (np.floor(np.log2(np.absolute(v))) - 1)
                 rde = True
 
-            if rde:
-                if 2 ** (np.floor(np.log2(np.absolute(vr)))) == 2 ** (np.floor(np.log2(np.absolute(v)))):
-                    location_map = True
+            if rde and 2 ** (np.floor(np.log2(np.absolute(vr)))) == 2 ** (np.floor(np.log2(np.absolute(v)))):
+                location_map = True
 
             if j < panjangteks:
                 b = int(teks[j])
@@ -155,6 +156,6 @@ LMFile.write(LMFileByteArray)
 LMFile.close()
 
 # print(len(lm), panjangteks, lm.count(0), lm.count(1), lm.count(2), lx[:6])
-print(head.reshape((-1, 2)))
+# print(head.reshape((-1, 2)))
 # # print(head)
 # print(lm.count(2))

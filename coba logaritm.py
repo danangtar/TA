@@ -20,14 +20,22 @@ import zlib
 # if -3 < -2:
 #     print("yes")
 #
-v=-1
-while v>-30:
-    vr = v + 2 ** (np.floor(np.log2(np.absolute(v))) - 1)
-    if 2 ** (np.floor(np.log2(np.absolute(vr)))) == 2 ** (np.floor(np.log2(np.absolute(v)))):
-        print(v, vr - 2 ** (np.floor(np.log2(np.absolute(vr))) - 1), " ", 2 ** (np.floor(np.log2(np.absolute(vr)))), 2 ** (np.floor(np.log2(np.absolute(v)))))
-    else:
-        print(v, vr - 2**np.floor(np.log2(np.absolute(vr))), " ", 2 ** (np.floor(np.log2(np.absolute(vr)))), 2 ** (np.floor(np.log2(np.absolute(v)))))
-    v -= 1
+# v=-1
+# while v>-30:
+#     vr = v + 2 ** (np.floor(np.log2(np.absolute(v))) - 1)
+#     if 2 ** (np.floor(np.log2(np.absolute(vr)))) == 2 ** (np.floor(np.log2(np.absolute(v)))):
+#         print(v, vr - 2 ** (np.floor(np.log2(np.absolute(vr))) - 1), " ", 2 ** (np.floor(np.log2(np.absolute(vr)))), 2 ** (np.floor(np.log2(np.absolute(v)))))
+#     else:
+#         print(v, vr - 2**np.floor(np.log2(np.absolute(vr))), " ", 2 ** (np.floor(np.log2(np.absolute(vr)))), 2 ** (np.floor(np.log2(np.absolute(v)))))
+#     v -= 1
+
+v = 138 - 134
+vr = v - 2 ** (np.floor(np.log2(np.absolute(v))) - 1)
+print(2 ** (np.floor(np.log2(np.absolute(vr)))), 2 ** (np.floor(np.log2(np.absolute(v)))))
+vtemp0 = 2 * vr + 0
+vtemp1 = 2 * vr + 1
+
+print(v, vr, vtemp0, vtemp1)
 
 # i = 0
 # while i < 3:
