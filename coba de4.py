@@ -21,23 +21,22 @@ head = signal[:headlen]
 tail = signal[headlen:]
 
 pair = head.reshape((-1, 2))
-y = pair.size
-pair = pair.tolist()
+# y = pair.size
+# pair = pair.tolist()
 x = 0
 lm = []
 
 teks = TA.pesan.Pesan()
 teks = teks.getBinary()
 panjangteks = len(teks)
-print(teks)
-print(pair)
+# print(teks)
+# print(pair)
 
 def expandable(v, m, b):
     vtemp = 2 * v + b
     if 128 <= m <= 255:
         if abs(vtemp) <= 2 * (255 - m):
             lm.append(0)
-            print(vtemp)
             return vtemp
         else:
             return changeable(v, m, b)
@@ -103,8 +102,8 @@ tulis = pair.reshape(1, -1)
 #     print("ok")
 tulis = np.append(tulis, tail)
 tulis.astype(np.uint8)
-print(tulis.size, size)
-print(tulis)
+# print(tulis.size, size)
+# print(tulis)
 #
 write('testde.wav', 44100, tulis)
 
@@ -125,6 +124,6 @@ LMFile.write(LMFileByteArray)
 LMFile.close()
 
 # print(len(lm), panjangteks, lm.count(0), lm.count(1), lm.count(2), lx[:6])
-print(head.reshape((-1, 2)))
+# print(head.reshape((-1, 2)))
 # # print(head)
 # print(lm.count(2))

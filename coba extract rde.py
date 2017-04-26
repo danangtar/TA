@@ -108,7 +108,7 @@ message = message.tolist()
 # message.append(False)
 # print(divmod(len(message), 8), len(message) % 8)
 
-n = int(bitarray.bitarray(message[:-(len(message) % 8)]).tostring(), 2)
+n = int(bitarray.bitarray(message).tostring(), 2)
 # print(n)
 
 write = binascii.unhexlify('%x' % n)

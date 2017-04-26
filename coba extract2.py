@@ -67,7 +67,7 @@ for isiquad in pair:
 
 
 pair = np.asarray(pair, dtype=np.uint8)
-print(pair)
+# print(pair)
 
 tulis = pair.reshape(1, -1)
 # print(tulis.size, head.size)
