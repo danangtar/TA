@@ -39,6 +39,7 @@ class Pesan:
     def toBinary(self):
         self.bitmessage = self.ba.fromstring(self.fileContent)
         self.bitmessage = self.ba.tolist()
+        self.panjangbit = len(self.bitmessage)
 
     def toMessage(self, bitmessage):
         n = int(bitarray.bitarray(bitmessage).tostring(), 2)
@@ -54,3 +55,6 @@ class Pesan:
 
     def returnMessage(self):
         return self.writeTo
+
+    def panjang(self):
+        return self.panjangbit
